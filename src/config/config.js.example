@@ -1,0 +1,22 @@
+const env = {
+    appName: '干饭组',
+
+    // 是否开启debug
+    debug: true,
+
+    version: 'Version 4.0.1',
+
+    // API 地址
+    apiBaseUrl: 'https://api.fmock.com',
+
+    // token存储键名
+    tokenKey: 'GANFANZU-TOKEN-KEY',
+
+    // 绑定状态
+    bindingKey: 'GANFANZU-BINDING-KEY',
+
+    // 前端存储过期时间 （单位天）
+    tokenExpire: 7,
+}
+
+export default env
