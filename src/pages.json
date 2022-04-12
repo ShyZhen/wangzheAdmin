@@ -7,10 +7,28 @@
 			}
 		}
 	],
+	"tabBar": {
+		"color": "#333333",
+		"selectedColor": "#F46845",
+		"backgroundColor": "#FCFCFD",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"text": "干饭",
+			"iconPath": "static/logo.jpg",
+			"selectedIconPath": "static/logo.jpg"
+		}
+		]
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "ShyZhen",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#F8F8F8",
+		"h5": {
+			"maxWidth": 1190,
+			"titleNView": false,
+			"navigationBarTextStyle": "black",
+			"navigationBarBackgroundColor": "#F1F1F1"
+		}
 	}
 }

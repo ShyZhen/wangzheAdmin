@@ -1,4 +1,6 @@
-# my-project
+# 通用开发架子
+
+npm install --save-dev cross-env --no-bin-links
 
 ## Project setup
 ```
