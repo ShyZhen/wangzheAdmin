@@ -2,6 +2,8 @@
 	<view class="content">
     <view class="t-login">
       <view class="t-b">{{title}}</view>
+      <view><button @tap="drawList">抽奖模块</button></view>
+      <view><button @tap="skinQuery">碎片兑换查询</button></view>
       <view><button @tap="bindLogout">登出</button></view>
     </view>
 	</view>
@@ -33,6 +35,18 @@
 		methods: {
 
       ...mapActions(['initLoginState']),
+
+      drawList() {
+        uni.navigateTo({
+          url: '../index/draw'
+        });
+      },
+
+      skinQuery() {
+        uni.navigateTo({
+          url: '../index/skin'
+        });
+      },
 
       bindLogout() {
         let that = this
