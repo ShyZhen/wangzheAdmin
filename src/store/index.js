@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getToken, getBinding } from '../utils/auth'
+import { getAppId } from '../utils/auth'
 
 Vue.use(Vuex)
 
@@ -12,8 +12,8 @@ const store = new Vuex.Store({
 		menu: [],
 	},
 	mutations: {
-		login(state) {
-			state.hasLogin = true;
+		login(state, bool = true) {
+			state.hasLogin = bool;
 		},
 		logout(state) {
 			state.hasLogin = false
@@ -34,10 +34,7 @@ const store = new Vuex.Store({
 	actions: {
 		initLoginState(context) {
 			if (context.state.hasLogin == false) {
-				context.commit('login', getToken() ? true : false)
-			}
-			if (context.state.hasBinding == false) {
-				context.commit('binding', getBinding() ? true : false)
+				context.commit('login', getAppId() ? true : false)
 			}
 		},
 	}

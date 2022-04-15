@@ -1,22 +1,22 @@
 const env = {
-    appName: '干饭组',
+    appName: '王者后台',
 
     // 是否开启debug
     debug: true,
 
-    version: 'Version 4.0.1',
+    version: 'Version 1.0.0',
 
     // API 地址
-    apiBaseUrl: 'https://api.fmock.com',
+    apiBaseUrl: 'https://api.xxx.com',
 
     // token存储键名
-    tokenKey: 'GANFANZU-TOKEN-KEY',
+    tokenKey: 'WANGZHEADMIN-APPID-KEY',
 
     // 绑定状态
-    bindingKey: 'GANFANZU-BINDING-KEY',
+    bindingKey: 'WANGZHEADMIN-PUUID-KEY',
 
     // 前端存储过期时间 （单位天）
-    tokenExpire: 7,
+    tokenExpire: 15,
 }
 
 export default env

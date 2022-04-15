@@ -18,7 +18,7 @@ const TOKENEXPIRE = Config.tokenExpire
 /**
  * 获取token
  */
-function getToken() {
+function getAppId() {
     try {
         let res = uni.getStorageSync(TOKENKEY)
         if (res) {
@@ -36,7 +36,7 @@ function getToken() {
  * 存储token
  * @param {string} token
  */
-function setToken(token) {
+function setAppId(token) {
     try {
         uni.setStorageSync(TOKENKEY, JSON.stringify({key: token, end: new Date().getTime() + 3600000 * 24 * TOKENEXPIRE}))
         return true
@@ -49,7 +49,7 @@ function setToken(token) {
 /**
  * 获取绑定状态
  */
-function getBinding() {
+function getPlatformId() {
     try {
         let res = uni.getStorageSync(BINDING)
         if (res) {
@@ -67,7 +67,7 @@ function getBinding() {
  * 激活状态（设置绑定状态）
  * @param {boolean} bool
  */
-function setBinding(bool) {
+function setPlatformId(bool) {
     try {
         uni.setStorageSync(BINDING, JSON.stringify({key: bool, end: new Date().getTime() + 3600000 * 24 * TOKENEXPIRE}))
         return true
@@ -91,4 +91,4 @@ function removeLoginStorage() {
     }
 }
 
-export { getToken, setToken, getBinding, setBinding, removeLoginStorage }
+export { getAppId, setAppId, getPlatformId, setPlatformId, removeLoginStorage }

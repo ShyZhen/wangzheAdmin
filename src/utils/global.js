@@ -28,32 +28,18 @@ function toast(text, config) {
 // 跳转到登录
 function toLogin() {
     uni.navigateTo({
-        url: '../login/login'
+        url: '../index/index'
     });
 }
 
 // 登录成功后刷新数据跳回当前页面
 function reLunchBack() {
-    let pages = getCurrentPages();
-    let currPage = pages[pages.length - 2];
-    if (currPage) {
-        if (currPage.route === 'pages/article/details') {
-            uni.reLaunch({
-                url: '/pages/article/article'
-            });
-        } else {
-            uni.reLaunch({
-                url: '/' + currPage.route
-            });
-        }
-    } else {
-        toHome()
-    }
+    toHome()
 }
 
 function toHome() {
-    uni.switchTab({
-        url: '../index/index'
+    uni.reLaunch({
+        url: '/pages/index/home'
     });
 }
 

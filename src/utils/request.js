@@ -23,7 +23,7 @@ class Request
      * @param {Object} headers
      */
     buildHeader(headers) {
-        let auth = {'Authorization': 'Bearer ' + Auth.getToken()};
+        let auth = {'Authorization': 'Bearer ' + Auth.getAppId()};
         return Object.assign({'Accept': 'application/json'}, headers || {}, auth);
     }
 
@@ -77,7 +77,7 @@ class Request
                             store.commit('logout')
                             setTimeout(() => {
                                 uni.navigateTo({
-                                    url: '/pages/login/login',
+                                    url: '/pages/index/index',
                                 });
                             }, 2000);
                         }
