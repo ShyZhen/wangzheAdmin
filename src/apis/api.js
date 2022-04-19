@@ -12,6 +12,17 @@ function platformLogin(app_id, platform_id) {
     })
 }
 
+function getDrawList(type, page, app_id, platform_id) {
+    let params = {'app_id':app_id, 'platform_id':platform_id}
+    return new Promise((resolve, reject) => {
+        request.request('POST', 'V1/mpwzadmin/draw/'+type+'?page='+page, params).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
 export {
-    platformLogin
+    platformLogin, getDrawList
 }

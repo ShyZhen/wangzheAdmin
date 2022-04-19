@@ -9,32 +9,34 @@
 		{
 			"path": "pages/index/home",
 			"style": {
-				"navigationBarTitleText": "主页"
+				"navigationBarTitleText": "仪表盘"
 			}
 		},
 		{
 			"path": "pages/index/draw",
 			"style": {
-				"navigationBarTitleText": "抽奖模块"
+				"navigationBarTitleText": "抽奖模块",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
 			"path": "pages/index/skin",
 			"style": {
-				"navigationBarTitleText": "碎片兑换申请"
+				"navigationBarTitleText": "碎片兑换申请",
+				"enablePullDownRefresh": true
 			}
 		}
 	],
 
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "ShyZhen",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor": "#1d3549",
 		"backgroundColor": "#F8F8F8",
 		"h5": {
 			"maxWidth": 1190,
 			"titleNView": false,
-			"navigationBarTextStyle": "black",
+			"navigationBarTextStyle": "white",
 			"navigationBarBackgroundColor": "#F1F1F1"
 		}
 	}
