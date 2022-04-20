@@ -1,5 +1,5 @@
 <template>
-	<view class="content">
+	<view class="container">
     <view class="t-login">
       <view class="t-b">{{title}}</view>
       <view><button @tap="drawList">抽奖模块</button></view>

@@ -17,20 +17,57 @@
       <load-more :status="navList[type].loadMoreStatus" />
     </view>
 
+    <!--  模态框  -->
+    <view v-show="chooseDrawItem">
+      <e-modal :visible.sync="visible" @cancel="handleCancel">
+        <view class="detail">
+          <view class="header">
+<!--            <view class="avatar-group">-->
+<!--              <image :src="chooseDrawItem.image"></image>-->
+<!--            </view>-->
+            <view class="info">
+              <view class="e-mt20">
+                <label class="name">标题</label>
+                <input clearable class="desc ellipsis" v-model="chooseDrawItem.title" maxlength="64" placeholder="" />
+              </view>
+              <view class="e-mt10">
+                <label class="name">开奖人数</label>
+                <input type="number" clearable class="desc ellipsis" v-model="chooseDrawItem.limit_user" placeholder="" />
+              </view>
+              <view class="e-mt10">
+                <label class="name">中奖者ID(默认0为随机开奖)</label>
+                <input type="number" clearable class="desc ellipsis" v-model="chooseDrawItem.winner_id" placeholder="" />
+              </view>
+              <view class="e-mt10">
+                <button @tap="handleEdit">确定更新</button>
+              </view>
+            </view>
+          </view>
+        </view>
+      </e-modal>
+    </view>
+
+    <!-- 右下角按钮 -->
+    <y-Fab :bottom="140" :right="40" :btnList="fabList" @click="handleFab" />
+
   </view>
 </template>
 
 <script>
   import { mapState, mapActions } from 'vuex'
   import {getAppId, getPlatformId} from "@/utils/auth";
-  import {getDrawList} from '@/apis/api.js'
+  import {editDraw, getDrawList, uniUploadImage} from '@/apis/api.js'
   import VideoList from '@/components/videolist/video-list'
   import LoadMore from '@/components/loadmore/load-more'
+  import yFab from '@/components/y-Fab/y-Fab'
+  import EModal from '@/components/e-modal/e-modal'
 
   export default {
-    components: {LoadMore, VideoList},
+    components: {LoadMore, VideoList, yFab, EModal},
 		data() {
 			return {
+        chooseDrawItem: {},
+        visible: false,
         title: 'draw',
         appId: '',
         platformId: '',
@@ -40,6 +77,15 @@
         navList: [
           {type: 0, title: '进行中'},
           {type: 1, title: '已结束'},
+        ],
+        //fab的设置
+        fabList: [
+          {
+            bgColor: '#3196FA',
+            text: '发布',
+            fontSize: 28,
+            color: '#fff'
+          }
         ],
 			}
 		},
@@ -137,31 +183,98 @@
         if (item.type !== 0) {
           uni.showModal({
             title: '结束活动无法更改',
-            content: '请ID为'+item.winner_id+'的用户尽快联系兑换',
+            content: '校验UUID：'+item.user.uuid,
             showCancel: false,
             confirmText: '好叻',
           })
           return false
         } else {
-          uni.navigateTo({
-            url: '/pages/draw/joinDraw?prams=' + JSON.stringify(item)
-          })
+          // 更新模态框
+          this.visible = true
+          this.chooseDrawItem = item
         }
       },
+      // 提交更新
+      handleEdit() {
+        let that = this
+        let err = this.checkData();
+        if (err) {
+          uni.showModal({
+            title: '输入有误',
+            content: err,
+            showCancel: false,
+            confirmText: '好叻',
+          })
+          return false
+        } else {
+          editDraw(that.appId, that.platformId, this.chooseDrawItem.id, this.chooseDrawItem.title, this.chooseDrawItem.winner_id, this.chooseDrawItem.limit_user).then(res => {
+            that.handleCancel()
+            uni.showModal({
+              title: '更新成功',
+              content: '是否需要刷新页面？',
+              success: function(res) {
+                if (res.confirm) {
+                  that.loadData('refresh');
+                } else if (res.cancel) {
+                  console.log('bu shua')
+                }
+              }
+            })
+          }).catch(err => {})
+        }
+      },
+
+      //点击右下角tab按钮
+      handleFab(e) {
+        let index = e.index;
+        switch (index) {
+          case 0:
+            if (this.hasLogin) {
+
+              console.log('addddd')
+
+            } else {
+              this.$toast('需要先登录')
+              setTimeout(() => {
+                this.$toLogin()
+              }, 1000);
+              return false
+            }
+            break;
+          case 1:
+            console.log(1);
+            break;
+        }
+      },
+      handleCancel() {
+        console.log('cancel')
+        this.visible = false
+      },
+      checkData() {
+        let numReg = /^[0-9]*$/
+        let numRe = new RegExp(numReg)
+
+        if (!this.chooseDrawItem.title) {
+          return '标题不能为空'
+        }
+        if (!numRe.test(this.chooseDrawItem.limit_user)) {
+          return '开奖人数只能为数字'
+        }
+        if (!numRe.test(this.chooseDrawItem.winner_id)) {
+          return '中奖者ID只能为数字'
+        }
+        if (!this.chooseDrawItem.image) {
+          return '图片地址不能为空'
+        }
+        return ''
+      },
+
 		}
 	}
 </script>
 
 <style>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.5s linear;
-  font-size: 14px;
-  color: #F4F5F6;
-}
+
 .page-section-spacing {
   background: rgba(0, 0, 0, 0.3);
   width: 100%;
@@ -183,5 +296,59 @@
   width: 100%;
   height: 100%;
   display: block;
+}
+.active {
+  background: transparent url('/static/active.png') no-repeat;
+  background-size: contain;
+  background-position: bottom center;
+}
+
+/* 模态框 */
+.ellipsis{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.detail{
+  border-radius: 4px;
+  padding: 12px;
+  background: #0A98D5;
+}
+.detail .header{
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 12px;
+  color: #fabd0c;
+}
+.detail .avatar-group{
+  flex-shrink: 0;
+  width: 88px;
+  height: 88px;
+  margin-right: 12px;
+  overflow: hidden;
+  border-radius: 6px;
+}
+.detail .avatar-group image{
+  width: 100%;
+  height: 100%;
+}
+.detail .info{
+  width: 100%;
+  overflow: hidden;
+}
+.detail .info view:not(:last-child){
+  margin-bottom: 12px;
+}
+.detail .name{
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 24px;
+  color: #50d3fd;
+}
+.detail .desc{
+  font-size: 12px;
+  line-height: 20px;
+  color: #ffffff;
 }
 </style>

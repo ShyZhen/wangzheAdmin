@@ -1,5 +1,5 @@
 <template>
-  <view className="content">
+  <view className="container">
     <view className="t-login">
       <view className="t-b">{{ title }}</view>
 

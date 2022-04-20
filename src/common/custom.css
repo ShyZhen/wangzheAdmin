@@ -308,3 +308,15 @@ ul li {
   justify-content: space-between;
   align-items: center;
 }
+
+/*页面通用page样式*/
+.container {
+  background: #145d7f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s linear;
+  font-size: 14px;
+  color: #F4F5F6;
+}
