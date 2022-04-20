@@ -17,14 +17,11 @@
       <load-more :status="navList[type].loadMoreStatus" />
     </view>
 
-    <!--  模态框  -->
+    <!--  模态框-修改  -->
     <view v-show="chooseDrawItem">
-      <e-modal :visible.sync="visible" @cancel="handleCancel">
+      <e-modal :visible.sync="visibleEdit" @cancel="handleCancel">
         <view class="detail">
           <view class="header">
-<!--            <view class="avatar-group">-->
-<!--              <image :src="chooseDrawItem.image"></image>-->
-<!--            </view>-->
             <view class="info">
               <view class="e-mt20">
                 <label class="name">标题</label>
@@ -47,6 +44,38 @@
       </e-modal>
     </view>
 
+    <!--  模态框-添加  -->
+    <view v-show="addDrawItem">
+      <e-modal :visible.sync="visibleAdd" @cancel="handleCancel">
+        <view class="detail">
+          <view class="header">
+            <view class="avatar-group" @tap="upload">
+              <view class="h100">
+                <image :src="addDrawItem.image"></image>
+              </view>
+            </view>
+            <view class="info">
+              <view class="e-mt20">
+                <label class="name">标题</label>
+                <input clearable class="desc ellipsis" v-model="addDrawItem.title" maxlength="64" placeholder="" />
+              </view>
+              <view class="e-mt10">
+                <label class="name">开奖人数</label>
+                <input type="number" clearable class="desc ellipsis" v-model="addDrawItem.limit_user" placeholder="" />
+              </view>
+              <view class="e-mt10">
+                <label class="name">中奖者ID(默认0为随机开奖)</label>
+                <input type="number" clearable class="desc ellipsis" v-model="addDrawItem.winner_id" placeholder="" />
+              </view>
+              <view class="e-mt10">
+                <button @tap="handleAdd">确定添加</button>
+              </view>
+            </view>
+          </view>
+        </view>
+      </e-modal>
+    </view>
+
     <!-- 右下角按钮 -->
     <y-Fab :bottom="140" :right="40" :btnList="fabList" @click="handleFab" />
 
@@ -56,7 +85,7 @@
 <script>
   import { mapState, mapActions } from 'vuex'
   import {getAppId, getPlatformId} from "@/utils/auth";
-  import {editDraw, getDrawList, uniUploadImage} from '@/apis/api.js'
+  import {editDraw, getDrawList, uniUploadImage, addDraw} from '@/apis/api.js'
   import VideoList from '@/components/videolist/video-list'
   import LoadMore from '@/components/loadmore/load-more'
   import yFab from '@/components/y-Fab/y-Fab'
@@ -66,8 +95,15 @@
     components: {LoadMore, VideoList, yFab, EModal},
 		data() {
 			return {
+        addDrawItem: {
+          title: '',
+          limit_user: 0,
+          winner_id: 0,
+          image: '/static/image.png',
+        },
         chooseDrawItem: {},
-        visible: false,
+        visibleEdit: false,
+        visibleAdd: false,
         title: 'draw',
         appId: '',
         platformId: '',
@@ -190,14 +226,14 @@
           return false
         } else {
           // 更新模态框
-          this.visible = true
+          this.visibleEdit = true
           this.chooseDrawItem = item
         }
       },
       // 提交更新
       handleEdit() {
         let that = this
-        let err = this.checkData();
+        let err = this.checkData(this.chooseDrawItem);
         if (err) {
           uni.showModal({
             title: '输入有误',
@@ -207,7 +243,7 @@
           })
           return false
         } else {
-          editDraw(that.appId, that.platformId, this.chooseDrawItem.id, this.chooseDrawItem.title, this.chooseDrawItem.winner_id, this.chooseDrawItem.limit_user).then(res => {
+          editDraw(that.appId, that.platformId, that.chooseDrawItem.id, that.chooseDrawItem.title, that.chooseDrawItem.winner_id, that.chooseDrawItem.limit_user).then(res => {
             that.handleCancel()
             uni.showModal({
               title: '更新成功',
@@ -223,16 +259,81 @@
           }).catch(err => {})
         }
       },
+      // 提交添加
+      handleAdd() {
+        let that = this
+        let err = this.checkData(this.addDrawItem);
+        if (err) {
+          uni.showModal({
+            title: '输入有误',
+            content: err,
+            showCancel: false,
+            confirmText: '好叻',
+          })
+          return false
+        } else {
+          // 添加
+          addDraw(that.appId, that.platformId, that.addDrawItem.title, that.addDrawItem.winner_id, that.addDrawItem.limit_user, that.addDrawItem.image).then(res => {
+            that.handleCancel()
+            uni.showModal({
+              title: '添加成功',
+              content: '是否需要刷新页面？',
+              success: function(res) {
+                if (res.confirm) {
+                  that.loadData('refresh');
+                } else if (res.cancel) {
+                  console.log('bu shua')
+                }
+              }
+            })
+          }).catch(err => {})
+        }
+      },
+      upload() {
+        let that = this
+        uni.chooseImage({
+          count: 1, //默认9
+          sizeType: ['compressed'],
+          sourceType: ['album'],
+          success: (fileRes) => {
+            if (fileRes.tempFilePaths.length) {
+              that.$loading('压缩上传中...')
+
+              let counter = 0
+              fileRes.tempFilePaths.forEach(function(item) {
+                uniUploadImage(that.appId, that.platformId, item).then(res => {
+                  // 此处无法依赖request中的错误处理
+                  if (res.statusCode !== 201) {
+                    that.$toast(JSON.parse(res.data).message)
+                    return false
+                  }
+
+                  // 回显
+                  that.addDrawItem.image = (JSON.parse(res.data).data)
+                  that.$loading(false)
+                }).catch(err => {
+                  console.log(err)
+                  that.$toast('上传失败，请重试')
+                })
+              })
+            }
+          }
+        });
+      },
+
+
+
+
+
 
       //点击右下角tab按钮
       handleFab(e) {
+        let that = this
         let index = e.index;
         switch (index) {
           case 0:
             if (this.hasLogin) {
-
-              console.log('addddd')
-
+              that.visibleAdd = true
             } else {
               this.$toast('需要先登录')
               setTimeout(() => {
@@ -248,22 +349,23 @@
       },
       handleCancel() {
         console.log('cancel')
-        this.visible = false
+        this.visibleEdit = false
+        this.visibleAdd = false
       },
-      checkData() {
+      checkData(item) {
         let numReg = /^[0-9]*$/
         let numRe = new RegExp(numReg)
 
-        if (!this.chooseDrawItem.title) {
+        if (!item.title) {
           return '标题不能为空'
         }
-        if (!numRe.test(this.chooseDrawItem.limit_user)) {
+        if (!numRe.test(item.limit_user)) {
           return '开奖人数只能为数字'
         }
-        if (!numRe.test(this.chooseDrawItem.winner_id)) {
+        if (!numRe.test(item.winner_id)) {
           return '中奖者ID只能为数字'
         }
-        if (!this.chooseDrawItem.image) {
+        if (!item.image || item.image === '/static/image.png') {
           return '图片地址不能为空'
         }
         return ''

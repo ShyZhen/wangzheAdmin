@@ -40,6 +40,10 @@ function uniUploadImage(app_id, platform_id, filePath) {
             url: request.buildFullUrl('/V1/mpwzadmin/image'),
             filePath: filePath,
             name: 'image',
+            formData:{  //后台所需除图片外的参数可以写在这里面
+                'app_id':app_id,
+                'platform_id':platform_id
+            },
             header: request.buildHeader({}),
             success: (uploadRes) => {
                 resolve(uploadRes)
@@ -51,6 +55,17 @@ function uniUploadImage(app_id, platform_id, filePath) {
     })
 }
 
+function addDraw(app_id, platform_id, title, winner_id, limit_user, image) {
+    let params = {'app_id':app_id, 'platform_id':platform_id, 'title':title,'winner_id':winner_id,'limit_user':limit_user, 'image': image}
+    return new Promise((resolve, reject) => {
+        request.request('POST', 'V1/mpwzadmin/add-draw', params).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
 export {
-    platformLogin, getDrawList, editDraw, uniUploadImage
+    platformLogin, getDrawList, editDraw, uniUploadImage, addDraw
 }
