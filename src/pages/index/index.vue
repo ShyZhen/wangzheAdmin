@@ -6,12 +6,12 @@
 
         <view class="t-a">
           <image src="/static/A.png" mode="widthFix"></image>
-          <input clearable v-model="iAppid" maxlength="32" placeholder="请输入小程序APPID" />
+          <input clearable v-model="iAppid" maxlength="32" placeholder-class="e-cb" placeholder="请输入小程序APPID" />
         </view>
 
         <view class="t-a">
           <image src="/static/P.png" mode="widthFix"></image>
-          <input clearable v-model="iPlatform" maxlength="64" placeholder="请输入平台唯一UUID" />
+          <input clearable v-model="iPlatform" maxlength="64" placeholder-class="e-cb" placeholder="请输入平台唯一UUID" />
         </view>
 
         <view>

@@ -24,16 +24,16 @@
           <view class="header">
             <view class="info">
               <view class="e-mt20">
-                <label class="name">标题</label>
-                <input clearable class="desc ellipsis" v-model="chooseDrawItem.title" maxlength="64" placeholder="" />
+                <label class="name">抽奖标题</label>
+                <input clearable class="desc ellipsis" v-model="chooseDrawItem.title" maxlength="64" placeholder-class="e-cb" placeholder="请输入标题" />
               </view>
               <view class="e-mt10">
                 <label class="name">开奖人数</label>
-                <input type="number" clearable class="desc ellipsis" v-model="chooseDrawItem.limit_user" placeholder="" />
+                <input type="number" clearable class="desc ellipsis" v-model="chooseDrawItem.limit_user" placeholder-class="e-cb" placeholder="" />
               </view>
               <view class="e-mt10">
-                <label class="name">中奖者ID(默认0为随机开奖)</label>
-                <input type="number" clearable class="desc ellipsis" v-model="chooseDrawItem.winner_id" placeholder="" />
+                <label class="name">内定中奖ID(0为随机开奖)</label>
+                <input type="number" clearable class="desc ellipsis" v-model="chooseDrawItem.winner_id" placeholder-class="e-cb" placeholder="" />
               </view>
               <view class="e-mt10">
                 <button @tap="handleEdit">确定更新</button>
@@ -56,16 +56,16 @@
             </view>
             <view class="info">
               <view class="e-mt20">
-                <label class="name">标题</label>
-                <input clearable class="desc ellipsis" v-model="addDrawItem.title" maxlength="64" placeholder="" />
+                <label class="name">抽奖标题</label>
+                <input clearable class="desc ellipsis" v-model="addDrawItem.title" maxlength="64" placeholder-class="e-cb" placeholder="请输入标题" />
               </view>
               <view class="e-mt10">
                 <label class="name">开奖人数</label>
-                <input type="number" clearable class="desc ellipsis" v-model="addDrawItem.limit_user" placeholder="" />
+                <input type="number" clearable class="desc ellipsis" v-model="addDrawItem.limit_user" placeholder-class="e-cb" placeholder="" />
               </view>
               <view class="e-mt10">
-                <label class="name">中奖者ID(默认0为随机开奖)</label>
-                <input type="number" clearable class="desc ellipsis" v-model="addDrawItem.winner_id" placeholder="" />
+                <label class="name">内定中奖ID(0为随机开奖)</label>
+                <input type="number" clearable class="desc ellipsis" v-model="addDrawItem.winner_id" placeholder-class="e-cb" placeholder="" />
               </view>
               <view class="e-mt10">
                 <button @tap="handleAdd">确定添加</button>
@@ -361,7 +361,7 @@
         let numReg = /^[0-9]*$/
         let numRe = new RegExp(numReg)
 
-        if (!item.title) {
+        if (!item.title.trim()) {
           return '标题不能为空'
         }
         if (!numRe.test(item.limit_user)) {
@@ -370,7 +370,7 @@
         if (!numRe.test(item.winner_id)) {
           return '中奖者ID只能为数字'
         }
-        if (!item.image || item.image === '/static/image.png') {
+        if (!item.image.trim() || item.image === '/static/image.png') {
           return '图片地址不能为空'
         }
         return ''
