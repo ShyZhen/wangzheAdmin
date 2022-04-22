@@ -25,6 +25,12 @@
 				"navigationBarTitleText": "碎片兑换申请",
 				"enablePullDownRefresh": true
 			}
+		},
+		{
+			"path": "pages/about/drawStatic",
+			"style": {
+				"navigationBarTitleText": "抽奖模块说明"
+			}
 		}
 	],
 

@@ -1,3 +1,5 @@
+const cdnUrl = 'https://image.xxx.com'
+
 const env = {
     appName: '王者后台',
 
@@ -8,6 +10,9 @@ const env = {
 
     // API 地址
     apiBaseUrl: 'https://api.xxx.com',
+
+    // CDN 地址 （用户存储图片资源，头像、武器）
+    CdnUrl: cdnUrl,
 
     // token存储键名
     tokenKey: 'WANGZHEADMIN-APPID-KEY',

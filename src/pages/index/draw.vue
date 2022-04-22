@@ -121,6 +121,12 @@
             text: '发布',
             fontSize: 28,
             color: '#fff'
+          },
+          {
+            bgColor: '#67aff6',
+            text: '必读',
+            fontSize: 28,
+            color: '#fff'
           }
         ],
 			}
@@ -322,10 +328,6 @@
       },
 
 
-
-
-
-
       //点击右下角tab按钮
       handleFab(e) {
         let that = this
@@ -343,7 +345,10 @@
             }
             break;
           case 1:
-            console.log(1);
+            let page = '/pages/about/drawStatic'
+            uni.navigateTo({
+              url: page
+            });
             break;
         }
       },
