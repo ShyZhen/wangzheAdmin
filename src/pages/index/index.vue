@@ -1,5 +1,5 @@
 <template>
-	<view class="content">
+	<view class="container content">
     <view class="t-login">
       <view class="t-b">{{title}}</view>
       <form class="cl">
@@ -15,7 +15,7 @@
         </view>
 
         <view>
-          <button @tap="loginAndSave">立即登录</button>
+          <button class="btn" @tap="loginAndSave">立即登录</button>
         </view>
 
       </form>
@@ -112,7 +112,7 @@
   .t-login .t-b {
     text-align: center;
     font-size: 46rpx;
-    color: #000;
+    color: #ffffff;
     padding: 150rpx 0
   }
 

@@ -1,5 +1,5 @@
 <template>
-  <view class="container" :style="{opacity:pageOpacity}">
+  <view class="container page" :style="{opacity:pageOpacity}">
     <view class="content">
       <!--  header  -->
       <view class="header-container">
@@ -68,12 +68,13 @@ export default {
 </script>
 
 <style>
-.container {
-  transition: all 0.5s linear;
-  font-size: 14px;
-  line-height: 24px;
-  color: #F4F5F6;
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
 .container .content {
   padding: 0 32rpx;
 }

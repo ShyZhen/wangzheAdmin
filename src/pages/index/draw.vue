@@ -1,5 +1,5 @@
 <template>
-  <view class="container" :style="{opacity:pageOpacity}">
+  <view class="container content" :style="{opacity:pageOpacity}">
     <!-- 滚动分类 -->
     <view class="page-section-spacing scrollH navFlex">
       <scroll-view class="scroll-view_H" scroll-x="true" @scroll="scroll" style="width: 100%">
@@ -381,6 +381,13 @@
 </script>
 
 <style>
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 
 .page-section-spacing {
   background: rgba(0, 0, 0, 0.3);

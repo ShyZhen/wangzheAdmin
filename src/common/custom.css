@@ -312,15 +312,26 @@ ul li {
 /*页面通用page样式*/
 .container {
   background: #145d7f;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*align-items: center;*/
+  /*justify-content: center;*/
   transition: all 0.5s linear;
   font-size: 14px;
   color: #F4F5F6;
+  min-height: 100vh;
 }
 .h100 {
   height: 100%;
   width: 100%;
+}
+
+.btn {
+  background: #111B67;
+  font-size:24rpx;
+  /*line-height:28rpx;*/
+  padding:5rpx 20rpx;
+  border-radius:30rpx;
+  color:#ffffff !important;
+  margin:0 10rpx;
 }

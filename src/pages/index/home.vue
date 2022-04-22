@@ -1,9 +1,9 @@
 <template>
-	<view class="container">
-    <view class="">
-      <view><button @tap="drawList">抽奖模块</button></view>
-      <view><button @tap="skinQuery">碎片兑换查询</button></view>
-      <view><button @tap="bindLogout">登出</button></view>
+	<view class="container content">
+    <view>
+      <view><button class="" @tap="drawList">抽奖模块</button></view>
+      <view><button class="" @tap="skinQuery">碎片兑换查询</button></view>
+      <view><button class="" @tap="bindLogout">登出</button></view>
     </view>
 
     <view>
@@ -100,6 +100,16 @@
 </script>
 
 <style>
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
 
 /* 模态框 */
 .ellipsis{
