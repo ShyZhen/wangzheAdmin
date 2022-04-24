@@ -1,5 +1,12 @@
 <template>
 	<view class="container content">
+
+    <view class="header">
+      <view class="logo-img">
+        <image :src="logo" lazy-load @load="onoff='1'" @tap="" />
+      </view>
+    </view>
+
     <view class="t-login">
       <view class="t-b">{{title}}</view>
       <form class="cl">
@@ -31,6 +38,7 @@
 	export default {
 		data() {
 			return {
+        logo: '/static/admin1.png',
 				title: '王者后台',
         iAppid: '',
         iPlatform: '',
@@ -77,6 +85,12 @@
 		align-items: center;
 		justify-content: center;
 	}
+
+  .header .logo-img image {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+  }
 
   .t-login {
     width: 600rpx;

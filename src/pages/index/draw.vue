@@ -36,7 +36,7 @@
                 <input type="number" clearable class="desc ellipsis" v-model="chooseDrawItem.winner_id" placeholder-class="e-cb" placeholder="" />
               </view>
               <view class="e-mt10">
-                <button @tap="handleEdit">确定更新</button>
+                <button class="btn" @tap="handleEdit">确定更新</button>
               </view>
             </view>
           </view>
@@ -68,7 +68,7 @@
                 <input type="number" clearable class="desc ellipsis" v-model="addDrawItem.winner_id" placeholder-class="e-cb" placeholder="" />
               </view>
               <view class="e-mt10">
-                <button @tap="handleAdd">确定添加</button>
+                <button class="btn" @tap="handleAdd">确定添加</button>
               </view>
             </view>
           </view>
@@ -97,7 +97,7 @@
 			return {
         addDrawItem: {
           title: '',
-          limit_user: 0,
+          limit_user: 100,
           winner_id: 0,
           image: '/static/image.png',
         },
@@ -385,7 +385,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 
@@ -415,54 +414,5 @@
   background: transparent url('/static/active.png') no-repeat;
   background-size: contain;
   background-position: bottom center;
-}
-
-/* 模态框 */
-.ellipsis{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.detail{
-  border-radius: 4px;
-  padding: 12px;
-  background: #0A98D5;
-}
-.detail .header{
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  margin-bottom: 12px;
-  color: #fabd0c;
-}
-.detail .avatar-group{
-  flex-shrink: 0;
-  width: 88px;
-  height: 88px;
-  margin-right: 12px;
-  overflow: hidden;
-  border-radius: 6px;
-}
-.detail .avatar-group image{
-  width: 100%;
-  height: 100%;
-}
-.detail .info{
-  width: 100%;
-  overflow: hidden;
-}
-.detail .info view:not(:last-child){
-  margin-bottom: 12px;
-}
-.detail .name{
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 24px;
-  color: #50d3fd;
-}
-.detail .desc{
-  font-size: 12px;
-  line-height: 20px;
-  color: #ffffff;
 }
 </style>

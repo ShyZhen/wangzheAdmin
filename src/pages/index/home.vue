@@ -1,9 +1,9 @@
 <template>
 	<view class="container content">
     <view>
-      <view><button class="" @tap="drawList">抽奖模块</button></view>
-      <view><button class="" @tap="skinQuery">碎片兑换查询</button></view>
-      <view><button class="" @tap="bindLogout">登出</button></view>
+      <view><button class="btn" @tap="drawList">抽奖模块</button></view>
+      <view><button class="btn" @tap="skinQuery">碎片兑换查询</button></view>
+      <view><button class="btn" @tap="bindLogout">登出</button></view>
     </view>
 
     <view>
@@ -12,11 +12,10 @@
           <view class="header">
             <view class="info">
               <view class="e-mt20">
-                <label class="name">抽奖标题</label>
                 <input type="text" clearable class="desc ellipsis" v-model="userUuid" maxlength="64" placeholder-class="e-cb" placeholder="请输入待查询用户的UUID"/>
               </view>
               <view class="e-mt10">
-                <button @tap="getSkinConvertLog">查询兑换记录</button>
+                <button class="btn" @tap="getSkinConvertLog">查询兑换记录</button>
               </view>
             </view>
           </view>
@@ -106,49 +105,5 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-
-
-
-/* 模态框 */
-.ellipsis{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.detail{
-  border-radius: 4px;
-  padding: 12px;
-  background: #0A98D5;
-}
-.detail .header{
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  margin-bottom: 12px;
-  color: #fabd0c;
-}
-.detail .avatar-group image{
-  width: 100%;
-  height: 100%;
-}
-.detail .info{
-  width: 100%;
-  overflow: hidden;
-}
-.detail .info view:not(:last-child){
-  margin-bottom: 12px;
-}
-.detail .name{
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 24px;
-  color: #50d3fd;
-}
-.detail .desc{
-  font-size: 12px;
-  line-height: 20px;
-  color: #ffffff;
 }
 </style>
