@@ -1,9 +1,16 @@
 <template>
 	<view class="container content">
     <view>
-      <view><button class="btn" @tap="drawList">抽奖模块</button></view>
-      <view><button class="btn" @tap="skinQuery">碎片兑换查询</button></view>
-      <view><button class="btn" @tap="bindLogout">登出</button></view>
+
+      <view class="join">
+        <view class="join-info">
+          <view class="e-pd20"><button @tap="drawList">抽奖模块</button></view>
+          <view class="e-pd20"><button @tap="skinQuery">碎片兑换查询</button></view>
+          <view class="e-pd20"><button @tap="bindLogout">登出</button></view>
+        </view>
+      </view>
+
+
     </view>
 
     <view>
@@ -105,5 +112,39 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+
+.join {
+  background: #1D3549;
+  border-radius: 14rpx;
+}
+
+/*参与按钮*/
+.join-info {
+  /*display: -webkit-box;*/
+  /*display: -webkit-flex;*/
+  /*display: flex;*/
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  text-align: center;
+  padding: 30rpx;
+}
+.join-info button {
+  padding: 0;
+  font-size: 34rpx;
+  color: #FFFFFF;
+  font-weight: 500;
+  text-align: center;
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 50%;
+  line-height: 180rpx;
+  background-image: linear-gradient(180deg, #1BD4F3 0%, #0E579B 100%);
+  box-shadow: inset 0px 3px 9px 0px rgba(227,237,255,1);box-shadow: 0px 5px 25px 0px rgba(10,89,162,1);
 }
 </style>

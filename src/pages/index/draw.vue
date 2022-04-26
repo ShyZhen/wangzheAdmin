@@ -117,7 +117,7 @@
         //fab的设置
         fabList: [
           {
-            bgColor: '#3196FA',
+            bgColor: '#159BCB',
             text: '发布',
             fontSize: 28,
             color: '#fff'
