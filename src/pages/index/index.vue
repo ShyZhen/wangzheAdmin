@@ -102,7 +102,7 @@
   .t-login input {
     padding: 0 20rpx 0 120rpx;
     height: 90rpx;
-    line-height: 90rpx;
+    /*line-height: 90rpx;*/
     margin-bottom: 50rpx;
     background: #f4f4f4;
     font-size: 28rpx;
@@ -114,13 +114,13 @@
   }
 
   .t-login .t-a image {
-    width: 40rpx;
-    height: 40rpx;
+    width: 32rpx;
+    height: 32rpx;
     position: absolute;
     left: 40rpx;
-    top: 28rpx;
+    top: 30rpx;
     border-right: 2rpx solid #dedede;
-    padding-right: 20rpx
+    padding-right: 20rpx;
   }
 
   .t-login .t-b {
