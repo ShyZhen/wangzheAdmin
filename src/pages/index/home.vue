@@ -5,13 +5,11 @@
       <view class="join">
         <view class="join-info">
           <view class="e-pd20"><button @tap="drawList">抽奖模块</button></view>
-          <view class="e-pd20"><button @tap="skinQuery">碎片兑换查询</button></view>
-          <view class="e-pd20"><button @tap="bindLogout">登出</button></view>
+          <view class="e-pd20"><button @tap="skinQuery">碎片兑换</button></view>
         </view>
       </view>
-
-
     </view>
+    <view class="footer"><button class="btn" @tap="bindLogout">登出</button></view>
 
     <view>
       <e-modal :visible.sync="visible" @cancel="handleCancel">
@@ -114,6 +112,12 @@
   justify-content: center;
 }
 
+.footer {
+  position: absolute;
+  bottom:0;
+  padding: 20rpx;
+  width: 200rpx;
+}
 
 .join {
   background: #1D3549;

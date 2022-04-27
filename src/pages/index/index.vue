@@ -151,7 +151,10 @@
   }
 
   .cl {
-    zoom: 1
+    zoom: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .cl:after {
